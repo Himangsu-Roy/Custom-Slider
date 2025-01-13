@@ -1,13 +1,14 @@
 {
   "$schema": "https://schemas.wp.org/trunk/block.json",
   "apiVersion": 3,
-  "name": "b-blocks/test-purpose",
+  "name": "b-blocks/custom-slider",
   "version": "1.0.0",
-  "title": "Test Purpose",
+  "title": "Custom Slider",
   "category": "widgets",
-  "description": "Short description of the Test Purpose",
+  "description": "Short description of the Custom Slider",
   "keywords": [
-    "Test Purpose"
+    "slider",
+    "cutom slider"
   ],
   "textdomain": "b-blocks",
   "attributes": {
@@ -25,6 +26,65 @@
         "color": "black",
         "bg": "#B1C5A4"
       }
+    },
+    "images": {
+      "type": "array",
+      "default": [
+        {
+          "url": "https://swiperjs.com/demos/images/nature-1.jpg",
+          "alt": "Image 1",
+          "title": "Image 1",
+          "description": "Image 1 Description"
+        },
+        {
+          "url": "https://swiperjs.com/demos/images/nature-2.jpg",
+          "alt": "Image 2",
+          "title": "Image 2",
+          "description": "Image 2 Description"
+        },
+        {
+          "url": "https://swiperjs.com/demos/images/nature-3.jpg",
+          "alt": "Image 3",
+          "title": "Image 3",
+          "description": "Image 3 Description"
+        },
+        {
+          "url": "https://swiperjs.com/demos/images/nature-4.jpg",
+          "alt": "Image 4",
+          "title": "Image 4",
+          "description": "Image 4 Description"
+        },
+        {
+          "url": "https://swiperjs.com/demos/images/nature-5.jpg",
+          "alt": "Image 5",
+          "title": "Image 5",
+          "description": "Image 5 Description"
+        },
+        {
+          "url": "https://swiperjs.com/demos/images/nature-6.jpg",
+          "alt": "Image 6",
+          "title": "Image 6",
+          "description": "Image 6 Description"
+        },
+        {
+          "url": "https://swiperjs.com/demos/images/nature-7.jpg",
+          "alt": "Image 7",
+          "title": "Image 7",
+          "description": "Image 7 Description"
+        },
+        {
+          "url": "https://swiperjs.com/demos/images/nature-8.jpg",
+          "alt": "Image 8",
+          "title": "Image 8",
+          "description": "Image 8 Description"
+        },
+        {
+          "url": "https://swiperjs.com/demos/images/nature-10.jpg",
+          "alt": "Image 10",
+          "title": "Image 10",
+          "description": "Image 10 Description"
+        }
+      ]
     }
   },
   "supports": {
@@ -37,9 +97,18 @@
   "example": {
     "attributes": {}
   },
-  "editorScript": "file:./index.js",
+  "editorScript": [
+    "file:./index.js",
+    ""
+  ],
   "editorStyle": "file:./index.css",
-  "style": "file:./view.css",
+  "style": [
+    "file:./view.css",
+    ""
+  ],
   "render": "file:./render.php",
-  "viewScript": "file:./view.js"
+  "viewScript": [
+    "file:./view.js",
+    ""
+  ]
 }

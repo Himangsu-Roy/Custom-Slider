@@ -1,19 +1,23 @@
-import { createRoot } from 'react-dom/client';
-import './style.scss';
-import Style from './Components/Common/Style';
-import BlockName from './Components/Frontend/BlockName';
+import { createRoot } from "react-dom/client";
+import "./style.scss";
+import Style from "./Components/Common/Style";
+import BlockName from "./Components/Frontend/BlockName";
+import CustomSlider from "./Components/CustomSlider/CustomSlider";
 
-document.addEventListener('DOMContentLoaded', () => {
-	const blockNameEls = document.querySelectorAll('.wp-block-b-blocks-test-purpose');
-	blockNameEls.forEach(blockNameEl => {
-		const attributes = JSON.parse(blockNameEl.dataset.attributes);
+document.addEventListener("DOMContentLoaded", () => {
+  const blockNameEls = document.querySelectorAll(
+    ".wp-block-b-blocks-custom-slider"
+  );
+  blockNameEls.forEach((blockNameEl) => {
+    const attributes = JSON.parse(blockNameEl.dataset.attributes);
 
-		createRoot(blockNameEl).render(<>
-			<Style attributes={attributes} id={blockNameEl.id} />
+    createRoot(blockNameEl).render(
+      <>
+        <Style attributes={attributes} id={blockNameEl.id} />
+        <CustomSlider attributes={attributes} />
+      </>
+    );
 
-			<BlockName attributes={attributes} />
-		</>);
-
-		blockNameEl?.removeAttribute('data-attributes');
-	});
+    blockNameEl?.removeAttribute("data-attributes");
+  });
 });
