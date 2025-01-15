@@ -22,20 +22,106 @@ const Style = ({
   id
 }) => {
   const {
-    colors
+    colors,
+    fontSize,
+    textContentAlignment,
+    titleColor,
+    descriptionColor,
+    descriptionFontStyle,
+    descriptionFontWeight,
+    desLineHeight,
+    desLetterSpacing,
+    desTextTrasform,
+    slideContentLayout,
+    translateX,
+    translateY,
+    red,
+    green,
+    blue,
+    alpha
   } = attributes;
+  const {
+    background,
+    bottom,
+    color,
+    display,
+    flexDirection,
+    height,
+    justifyContent,
+    left,
+    maxHeight,
+    padding,
+    width,
+    alignItems
+  } = slideContentLayout;
   const mainSl = `#${id}`;
-  const blockSl = `${mainSl} .bBlocksTestPurpose`;
+  const blockSl = `${mainSl} .bBlocksCustomSlider`;
+  const swiperSl = `${blockSl} .mySwiper`;
+  const swiperWrapperSl = `${swiperSl} .swiper-wrapper`;
+  const swiperSlideSl = `${swiperWrapperSl} .swiper-slide`;
+  const slideWrapperSl = `${swiperSlideSl} .slide-wrapper`;
+  const descriptionSl = `${slideWrapperSl} .slide-content .slide-description`;
+  const descriptionFontSize = `#${id}.slide-description`;
+  const slideContent = `${slideWrapperSl} .slide-content`;
 
   // ${blockSl} p{
   // 		${getColorsCSS(colors)}
   // 	}
-
+  console.log(translateX, translateY, "transform");
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("style", {
     dangerouslySetInnerHTML: {
       __html: `
-		
-		
+        ${descriptionFontSize}{
+          font-size: ${fontSize}px;
+        }
+
+        ${slideContent} {
+        text-align: center;
+        }
+        
+        .slide-content{
+          text-align: ${textContentAlignment};
+
+          bottom: ${bottom};
+          left: ${left};
+          width: ${width};
+          height: ${height};
+          background: rgba(0, 0, 0, 0.6);
+          padding: ${padding};
+          color: ${color};
+         
+        
+          max-height: ${maxHeight};
+          display: ${display};
+          flex-direction: ${flexDirection};
+          justify-content: ${justifyContent};
+          transform: translate(${translateX}%, ${translateY}%);
+          background-color: rgba(${red}, ${green}, ${blue}, ${alpha});
+          
+
+        }
+
+        .slide-wrapper img{
+
+        }
+
+        .slide-title {
+         color: ${titleColor};
+        }
+
+        .slide-description {
+         color: ${descriptionColor};
+         font-style: ${descriptionFontStyle};
+         font-weight: ${descriptionFontWeight};
+         line-height: ${desLineHeight};
+         letter-spacing: ${desLetterSpacing};
+         text-transform: ${desTextTrasform};
+        }
+
+        .swiper-button-prev{
+        }
+
+
 
 	`
     }
@@ -58,34 +144,43 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var swiper_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! swiper/react */ "../plugin-slug/node_modules/swiper/swiper-react.mjs");
-/* harmony import */ var swiper_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! swiper/css */ "../plugin-slug/node_modules/swiper/swiper.css");
-/* harmony import */ var swiper_css_effect_coverflow__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! swiper/css/effect-coverflow */ "../plugin-slug/node_modules/swiper/modules/effect-coverflow.css");
-/* harmony import */ var swiper_css_pagination__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! swiper/css/pagination */ "../plugin-slug/node_modules/swiper/modules/pagination.css");
-/* harmony import */ var _styles_css__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./styles.css */ "./src/Components/CustomSlider/styles.css");
-/* harmony import */ var swiper_modules__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! swiper/modules */ "../plugin-slug/node_modules/swiper/modules/index.mjs");
-
-
-// Import Swiper React components
-
-
-// Import Swiper styles
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var swiper_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! swiper/css */ "../plugin-slug/node_modules/swiper/swiper.css");
+/* harmony import */ var swiper_css_effect_coverflow__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! swiper/css/effect-coverflow */ "../plugin-slug/node_modules/swiper/modules/effect-coverflow.css");
+/* harmony import */ var swiper_css_pagination__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! swiper/css/pagination */ "../plugin-slug/node_modules/swiper/modules/pagination.css");
+/* harmony import */ var _styles_css__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./styles.css */ "./src/Components/CustomSlider/styles.css");
+/* harmony import */ var swiper_modules__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! swiper/modules */ "../plugin-slug/node_modules/swiper/modules/index.mjs");
 
 
 
 
 
-// import required modules
+
+
+
 
 function CustomSlider({
-  attributes
+  attributes,
+  setAttributes
 }) {
   const {
-    images
+    images,
+    selectTag,
+    fontSize,
+    textContentAlignment,
+    indicator,
+    desLineHeight,
+    desLetterSpacing,
+    slideEffects
   } = attributes;
-  //   console.log(images[0].url, "images");
-
+  const {
+    effect
+  } = slideEffects;
+  console.log(effect, "effect from custom slide");
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(swiper_react__WEBPACK_IMPORTED_MODULE_1__.Swiper, {
-    effect: "coverflow",
+    effect: effect // effects
+    ,
     grabCursor: true,
     centeredSlides: true,
     slidesPerView: "auto",
@@ -96,17 +191,70 @@ function CustomSlider({
       modifier: 1,
       slideShadows: true
     },
-    pagination: true,
+    creativeEffect: {
+      prev: {
+        shadow: true,
+        translate: [0, 0, -400]
+      },
+      next: {
+        translate: ["100%", 0, 0]
+      }
+    },
+    cubeEffect: {
+      shadow: true,
+      slideShadows: true,
+      shadowOffset: 20,
+      shadowScale: 0.94
+    },
+    spaceBetween: 30,
     loop: true,
-    modules: [swiper_modules__WEBPACK_IMPORTED_MODULE_6__.EffectCoverflow, swiper_modules__WEBPACK_IMPORTED_MODULE_6__.Pagination],
+    pagination: {
+      clickable: `${indicator}`,
+      dynamicBullets: `${indicator}`
+    },
+    navigation: true,
+    modules: [swiper_modules__WEBPACK_IMPORTED_MODULE_7__.EffectCoverflow, swiper_modules__WEBPACK_IMPORTED_MODULE_7__.Navigation, swiper_modules__WEBPACK_IMPORTED_MODULE_7__.Pagination, swiper_modules__WEBPACK_IMPORTED_MODULE_7__.EffectCards, swiper_modules__WEBPACK_IMPORTED_MODULE_7__.EffectCube, swiper_modules__WEBPACK_IMPORTED_MODULE_7__.EffectFade, swiper_modules__WEBPACK_IMPORTED_MODULE_7__.EffectFlip, swiper_modules__WEBPACK_IMPORTED_MODULE_7__.EffectCreative],
     className: "mySwiper"
   }, images.map((image, index) => {
     return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(swiper_react__WEBPACK_IMPORTED_MODULE_1__.SwiperSlide, {
+      className: "slide",
       key: index
+    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      className: "slide-wrapper"
     }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("img", {
+      className: "slide-image",
       src: image.url,
       alt: image.alt
-    }));
+    }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+      className: "slide-content"
+    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.RichText, {
+      className: "slide-title",
+      tagName: selectTag,
+      value: image.title,
+      onChange: newTitle => {
+        const newImages = [...images];
+        newImages[index].title = newTitle;
+        setAttributes({
+          images: newImages
+        });
+      }
+    }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.RichText, {
+      style: {
+        fontSize: `${fontSize}`,
+        lineHeight: `${desLineHeight}`,
+        letterSpacing: `${desLetterSpacing}`
+      },
+      tagName: "p",
+      className: "slide-description",
+      value: image.description,
+      onChange: newDescription => {
+        const newImages = [...images];
+        newImages[index].description = newDescription;
+        setAttributes({
+          images: newImages
+        });
+      }
+    }))));
   })));
 }
 
@@ -248,6 +396,16 @@ module.exports = window["React"];
 /***/ ((module) => {
 
 module.exports = window["ReactDOM"];
+
+/***/ }),
+
+/***/ "@wordpress/block-editor":
+/*!*************************************!*\
+  !*** external ["wp","blockEditor"] ***!
+  \*************************************/
+/***/ ((module) => {
+
+module.exports = window["wp"]["blockEditor"];
 
 /***/ }),
 

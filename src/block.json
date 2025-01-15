@@ -28,60 +28,107 @@
       "type": "array",
       "default": [
         {
-          "url": "https://swiperjs.com/demos/images/nature-1.jpg",
-          "alt": "Image 1",
-          "title": "Image 1",
-          "description": "Image 1 Description"
-        },
-        {
-          "url": "https://swiperjs.com/demos/images/nature-2.jpg",
-          "alt": "Image 2",
-          "title": "Image 2",
-          "description": "Image 2 Description"
-        },
-        {
-          "url": "https://swiperjs.com/demos/images/nature-3.jpg",
-          "alt": "Image 3",
-          "title": "Image 3",
-          "description": "Image 3 Description"
-        },
-        {
-          "url": "https://swiperjs.com/demos/images/nature-4.jpg",
-          "alt": "Image 4",
-          "title": "Image 4",
-          "description": "Image 4 Description"
-        },
-        {
-          "url": "https://swiperjs.com/demos/images/nature-5.jpg",
-          "alt": "Image 5",
-          "title": "Image 5",
-          "description": "Image 5 Description"
-        },
-        {
-          "url": "https://swiperjs.com/demos/images/nature-6.jpg",
-          "alt": "Image 6",
-          "title": "Image 6",
-          "description": "Image 6 Description"
-        },
-        {
-          "url": "https://swiperjs.com/demos/images/nature-7.jpg",
-          "alt": "Image 7",
-          "title": "Image 7",
-          "description": "Image 7 Description"
-        },
-        {
-          "url": "https://swiperjs.com/demos/images/nature-8.jpg",
-          "alt": "Image 8",
-          "title": "Image 8",
-          "description": "Image 8 Description"
-        },
-        {
-          "url": "https://swiperjs.com/demos/images/nature-10.jpg",
-          "alt": "Image 10",
-          "title": "Image 10",
-          "description": "Image 10 Description"
+          "url": "https://plus.unsplash.com/premium_photo-1668091148044-056cd744e64a?q=80&w=2090&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+          "title": "Image title",
+          "description": "Image Description"
         }
       ]
+    },
+    "selectTag": {
+      "type": "string",
+      "default": "h1"
+    },
+    "fontSize": {
+      "type": "string",
+      "default": "16px"
+    },
+    "textContentAlignment": {
+      "type": "string",
+      "default": "left"
+    },
+    "indicator": {
+      "type": "boolean",
+      "default": true
+    },
+    "titleColor": {
+      "type": "string",
+      "default": "#fff"
+    },
+    "descriptionColor": {
+      "type": "string",
+      "default": "#fff"
+    },
+    "descriptionFontWeight": {
+      "type": "string",
+      "default": "normal"
+    },
+    "descriptionFontStyle": {
+      "type": "string",
+      "default": "normal"
+    },
+    "desLineHeight": {
+      "type": "string",
+      "default": ""
+    },
+    "desLetterSpacing": {
+      "type": "string",
+      "default": ""
+    },
+    "desTextTrasform": {
+      "type": "string",
+      "default": ""
+    },
+
+    "slideContentLayout": {
+      "type": "object",
+      "default": {
+        "bottom": "0%",
+        "left": "0px",
+        "width": "100%",
+        "height": "100%",
+        "background": "#000000",
+        "color": "#fff",
+        "padding": "19px 15px",
+        "maxHeight": "50%",
+        "display": "flex",
+        "flexDirection": "column",
+        "justifyContent": "top",
+        "alignItems": "center center"
+      }
+    },
+    "slideEffects": {
+      "type": "object",
+      "default": {
+        "effect": "fade",
+        "duration": 1000,
+        "delay": 1000,
+        "easing": "ease"
+      }
+    },
+    "translateX": {
+      "type": "number",
+      "default": 0
+    },
+    "translateY": {
+      "type": "number",
+      "default": 0
+    },
+
+    "red": {
+      "type": "number",
+      "default": 0
+    },
+    "green": {
+      "type": "number",
+      "default": 0
+    },
+    "blue": {
+      "type": "number",
+      "default": 0
+    },
+    "alpha": {
+      "type": "number",
+      "default": 1
     }
   },
   "supports": {

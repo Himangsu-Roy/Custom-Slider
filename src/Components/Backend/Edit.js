@@ -10,6 +10,8 @@ const Edit = (props) => {
   const { purposeType } = attributes;
   const id = `${prefix}-${clientId}`;
 
+  console.log(attributes, "Attributes");
+
   return (
     <>
       <Settings {...{ attributes, setAttributes }} />
@@ -18,7 +20,7 @@ const Edit = (props) => {
         <Style attributes={attributes} id={`block-${clientId}`} />
 
         <div className={prefix}>
-          <CustomSlider attributes={attributes} />
+          <CustomSlider attributes={attributes} setAttributes={setAttributes} />
         </div>
       </div>
     </>

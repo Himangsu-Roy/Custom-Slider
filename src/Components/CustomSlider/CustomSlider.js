@@ -1,25 +1,34 @@
-import React, { useRef, useState } from "react";
-// Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
+import { RichText } from "@wordpress/block-editor";
 
-// Import Swiper styles
 import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
 
 import "./styles.css";
+import React from "react";
 
-// import required modules
-import { EffectCoverflow, Pagination, Navigation } from "swiper/modules";
+import { EffectCoverflow, Pagination, Navigation, EffectFade, EffectCube, EffectFlip, EffectCards, EffectCreative } from "swiper/modules";
 
-export default function CustomSlider({ attributes }) {
-  const { images } = attributes;
-  //   console.log(images[0].url, "images");
+export default function CustomSlider({ attributes, setAttributes }) {
+  const {
+    images,
+    selectTag,
+    fontSize,
+    textContentAlignment,
+    indicator,
+    desLineHeight,
+    desLetterSpacing,
+    slideEffects,
+  } = attributes;
+
+  const { effect } = slideEffects;
+  console.log(effect, "effect from custom slide");
 
   return (
     <>
       <Swiper
-        effect={"coverflow"}
+        effect={effect} // effects
         grabCursor={true}
         centeredSlides={true}
         slidesPerView={"auto"}
@@ -30,45 +39,76 @@ export default function CustomSlider({ attributes }) {
           modifier: 1,
           slideShadows: true,
         }}
-        pagination={true}
+        creativeEffect={{
+          prev: {
+            shadow: true,
+            translate: [0, 0, -400],
+          },
+          next: {
+            translate: ["100%", 0, 0],
+          },
+        }}
+        cubeEffect={{
+          shadow: true,
+          slideShadows: true,
+          shadowOffset: 20,
+          shadowScale: 0.94,
+        }}
+        spaceBetween={30}
         loop={true}
-        modules={[EffectCoverflow, Pagination]}
+        pagination={{
+          clickable: `${indicator}`,
+          dynamicBullets: `${indicator}`,
+        }}
+        navigation={true}
+        modules={[
+          EffectCoverflow,
+          Navigation,
+          Pagination,
+          EffectCards,
+          EffectCube,
+          EffectFade,
+          EffectFlip,
+          EffectCreative,
+        ]}
         className="mySwiper"
       >
         {images.map((image, index) => {
           return (
-            <SwiperSlide key={index}>
-              <img src={image.url} alt={image.alt} />
+            <SwiperSlide className="slide" key={index}>
+              <div className="slide-wrapper">
+                <img className="slide-image" src={image.url} alt={image.alt} />
+                <div className="slide-content">
+                  <RichText
+                    className="slide-title"
+                    tagName={selectTag}
+                    value={image.title}
+                    onChange={(newTitle) => {
+                      const newImages = [...images];
+                      newImages[index].title = newTitle;
+                      setAttributes({ images: newImages });
+                    }}
+                  />
+                  <RichText
+                    style={{
+                      fontSize: `${fontSize}`,
+                      lineHeight: `${desLineHeight}`,
+                      letterSpacing: `${desLetterSpacing}`,
+                    }}
+                    tagName="p"
+                    className="slide-description"
+                    value={image.description}
+                    onChange={(newDescription) => {
+                      const newImages = [...images];
+                      newImages[index].description = newDescription;
+                      setAttributes({ images: newImages });
+                    }}
+                  />
+                </div>
+              </div>
             </SwiperSlide>
           );
         })}
-        {/* <SwiperSlide>
-          <img src="https://swiperjs.com/demos/images/nature-1.jpg" alt="" />
-        </SwiperSlide>
-        <SwiperSlide>
-          <img src="https://swiperjs.com/demos/images/nature-2.jpg" alt="" />
-        </SwiperSlide>
-        <SwiperSlide>
-          <img src="https://swiperjs.com/demos/images/nature-3.jpg" alt="" />
-        </SwiperSlide>
-        <SwiperSlide>
-          <img src="https://swiperjs.com/demos/images/nature-4.jpg" alt="" />
-        </SwiperSlide>
-        <SwiperSlide>
-          <img src="https://swiperjs.com/demos/images/nature-5.jpg" alt="" />
-        </SwiperSlide>
-        <SwiperSlide>
-          <img src="https://swiperjs.com/demos/images/nature-6.jpg" alt="" />
-        </SwiperSlide>
-        <SwiperSlide>
-          <img src="https://swiperjs.com/demos/images/nature-7.jpg" alt="" />
-        </SwiperSlide>
-        <SwiperSlide>
-          <img src="https://swiperjs.com/demos/images/nature-8.jpg" alt="" />
-        </SwiperSlide>
-        <SwiperSlide>
-          <img src="https://swiperjs.com/demos/images/nature-10.jpg" alt="" />
-        </SwiperSlide> */}
       </Swiper>
     </>
   );
