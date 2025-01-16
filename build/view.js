@@ -86,11 +86,8 @@ const Style = ({
           left: ${left};
           width: ${width};
           height: ${height};
-          background: rgba(0, 0, 0, 0.6);
           padding: ${padding};
           color: ${color};
-         
-        
           max-height: ${maxHeight};
           display: ${display};
           flex-direction: ${flexDirection};
@@ -172,14 +169,23 @@ function CustomSlider({
     indicator,
     desLineHeight,
     desLetterSpacing,
-    slideEffects
+    slideEffects,
+    isAutoplay,
+    delay,
+    showNavigation,
+    showPagination
   } = attributes;
   const {
     effect
   } = slideEffects;
-  console.log(effect, "effect from custom slide");
+
+  // {
+  //   nextEl: ".swiper-button-next",
+  //   prevEl: ".swiper-button-prev",
+  // }
+
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(swiper_react__WEBPACK_IMPORTED_MODULE_1__.Swiper, {
-    effect: effect // effects
+    effect: effect //effect
     ,
     grabCursor: true,
     centeredSlides: true,
@@ -206,14 +212,17 @@ function CustomSlider({
       shadowOffset: 20,
       shadowScale: 0.94
     },
-    spaceBetween: 30,
     loop: true,
-    pagination: {
-      clickable: `${indicator}`,
-      dynamicBullets: `${indicator}`
-    },
-    navigation: true,
-    modules: [swiper_modules__WEBPACK_IMPORTED_MODULE_7__.EffectCoverflow, swiper_modules__WEBPACK_IMPORTED_MODULE_7__.Navigation, swiper_modules__WEBPACK_IMPORTED_MODULE_7__.Pagination, swiper_modules__WEBPACK_IMPORTED_MODULE_7__.EffectCards, swiper_modules__WEBPACK_IMPORTED_MODULE_7__.EffectCube, swiper_modules__WEBPACK_IMPORTED_MODULE_7__.EffectFade, swiper_modules__WEBPACK_IMPORTED_MODULE_7__.EffectFlip, swiper_modules__WEBPACK_IMPORTED_MODULE_7__.EffectCreative],
+    pagination: showPagination ? {
+      clickable: true,
+      dynamicBullets: true
+    } : false,
+    navigation: showNavigation ? true : false,
+    autoplay: isAutoplay ? {
+      delay: delay,
+      disableOnInteraction: false
+    } : false,
+    modules: [swiper_modules__WEBPACK_IMPORTED_MODULE_7__.EffectCoverflow, swiper_modules__WEBPACK_IMPORTED_MODULE_7__.Navigation, swiper_modules__WEBPACK_IMPORTED_MODULE_7__.Pagination, swiper_modules__WEBPACK_IMPORTED_MODULE_7__.EffectCards, swiper_modules__WEBPACK_IMPORTED_MODULE_7__.EffectCube, swiper_modules__WEBPACK_IMPORTED_MODULE_7__.EffectFade, swiper_modules__WEBPACK_IMPORTED_MODULE_7__.EffectFlip, swiper_modules__WEBPACK_IMPORTED_MODULE_7__.EffectCreative, swiper_modules__WEBPACK_IMPORTED_MODULE_7__.Autoplay],
     className: "mySwiper"
   }, images.map((image, index) => {
     return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(swiper_react__WEBPACK_IMPORTED_MODULE_1__.SwiperSlide, {
@@ -237,7 +246,8 @@ function CustomSlider({
         setAttributes({
           images: newImages
         });
-      }
+      },
+      placeholder: "Write Slide Title"
     }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.RichText, {
       style: {
         fontSize: `${fontSize}`,
@@ -253,7 +263,8 @@ function CustomSlider({
         setAttributes({
           images: newImages
         });
-      }
+      },
+      placeholder: "Write Slide Description"
     }))));
   })));
 }

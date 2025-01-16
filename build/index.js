@@ -44038,10 +44038,14 @@ const General = ({
     selectTag,
     fontSize,
     textContentAlignment,
-    indicator
+    indicator,
+    isAutoplay,
+    delay,
+    showNavigation,
+    showPagination
   } = attributes;
   const [currentIndex, setCurrentIndex] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0);
-  // console.log(currentIndex, "current index");
+  console.log(delay, "delay number");
 
   // Duplicate Handler
   function handleDuplicate(image, index) {
@@ -44230,14 +44234,69 @@ const General = ({
       const newIndex = images.length + 1;
       newItems.push({
         url: "https://plus.unsplash.com/premium_photo-1668091148044-056cd744e64a?q=80&w=2090&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-        title: `Image ${newIndex}`,
-        description: `Image ${newIndex} Description`
+        title: `Slide Title ${newIndex}`,
+        description: `Slide ${newIndex} Description`
       });
       setAttributes({
         images: newItems
       });
     }
-  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)("Add New Slide", "b-blocks"))));
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)("Add New Slide", "b-blocks"))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.PanelBody, {
+    className: "bPlPanelBody",
+    title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)("Slider Options", "b-blocks"),
+    initialOpen: false
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.ToggleControl, {
+    label: "Autoplay",
+    help: isAutoplay ? "Autoplay On" : "Autoplay Off",
+    checked: isAutoplay,
+    onChange: value => {
+      setAttributes({
+        isAutoplay: value
+      });
+    }
+  }), isAutoplay && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.__experimentalNumberControl, {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)("Autoplay delay", "b-blocks"),
+    onChange: value => {
+      setAttributes({
+        delay: value
+      });
+    }
+    // isDragEnabled
+    // isShiftStepEnabled
+    // shiftStep={10}
+    // step={10}
+    ,
+    value: delay
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.__experimentalSpacer, null), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.ToggleControl, {
+    label: "Show Navigation",
+    help: showNavigation ? "Navigation On" : "Navigation Off",
+    checked: showNavigation,
+    onChange: value => {
+      setAttributes({
+        showNavigation: value
+      });
+    }
+  }), showNavigation && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    style: {
+      display: "flex"
+    },
+    className: "button-group"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Button, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+    className: "dashicons dashicons-arrow-right"
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Button, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+    className: "dashicons dashicons-arrow-right-alt"
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Button, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("span", {
+    className: "dashicons dashicons-arrow-right-alt2"
+  }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.__experimentalSpacer, null), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.ToggleControl, {
+    label: "Show Pagination",
+    help: showPagination ? "Pagination On" : "Pagination Off",
+    checked: showPagination,
+    onChange: value => {
+      setAttributes({
+        showPagination: value
+      });
+    }
+  })));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (General);
 
@@ -44732,11 +44791,8 @@ const Style = ({
           left: ${left};
           width: ${width};
           height: ${height};
-          background: rgba(0, 0, 0, 0.6);
           padding: ${padding};
           color: ${color};
-         
-        
           max-height: ${maxHeight};
           display: ${display};
           flex-direction: ${flexDirection};
@@ -44819,14 +44875,23 @@ function CustomSlider({
     indicator,
     desLineHeight,
     desLetterSpacing,
-    slideEffects
+    slideEffects,
+    isAutoplay,
+    delay,
+    showNavigation,
+    showPagination
   } = attributes;
   const {
     effect
   } = slideEffects;
-  console.log(effect, "effect from custom slide");
+
+  // {
+  //   nextEl: ".swiper-button-next",
+  //   prevEl: ".swiper-button-prev",
+  // }
+
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(swiper_react__WEBPACK_IMPORTED_MODULE_1__.Swiper, {
-    effect: effect // effects
+    effect: effect //effect
     ,
     grabCursor: true,
     centeredSlides: true,
@@ -44853,14 +44918,17 @@ function CustomSlider({
       shadowOffset: 20,
       shadowScale: 0.94
     },
-    spaceBetween: 30,
     loop: true,
-    pagination: {
-      clickable: `${indicator}`,
-      dynamicBullets: `${indicator}`
-    },
-    navigation: true,
-    modules: [swiper_modules__WEBPACK_IMPORTED_MODULE_7__.EffectCoverflow, swiper_modules__WEBPACK_IMPORTED_MODULE_7__.Navigation, swiper_modules__WEBPACK_IMPORTED_MODULE_7__.Pagination, swiper_modules__WEBPACK_IMPORTED_MODULE_7__.EffectCards, swiper_modules__WEBPACK_IMPORTED_MODULE_7__.EffectCube, swiper_modules__WEBPACK_IMPORTED_MODULE_7__.EffectFade, swiper_modules__WEBPACK_IMPORTED_MODULE_7__.EffectFlip, swiper_modules__WEBPACK_IMPORTED_MODULE_7__.EffectCreative],
+    pagination: showPagination ? {
+      clickable: true,
+      dynamicBullets: true
+    } : false,
+    navigation: showNavigation ? true : false,
+    autoplay: isAutoplay ? {
+      delay: delay,
+      disableOnInteraction: false
+    } : false,
+    modules: [swiper_modules__WEBPACK_IMPORTED_MODULE_7__.EffectCoverflow, swiper_modules__WEBPACK_IMPORTED_MODULE_7__.Navigation, swiper_modules__WEBPACK_IMPORTED_MODULE_7__.Pagination, swiper_modules__WEBPACK_IMPORTED_MODULE_7__.EffectCards, swiper_modules__WEBPACK_IMPORTED_MODULE_7__.EffectCube, swiper_modules__WEBPACK_IMPORTED_MODULE_7__.EffectFade, swiper_modules__WEBPACK_IMPORTED_MODULE_7__.EffectFlip, swiper_modules__WEBPACK_IMPORTED_MODULE_7__.EffectCreative, swiper_modules__WEBPACK_IMPORTED_MODULE_7__.Autoplay],
     className: "mySwiper"
   }, images.map((image, index) => {
     return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(swiper_react__WEBPACK_IMPORTED_MODULE_1__.SwiperSlide, {
@@ -44884,7 +44952,8 @@ function CustomSlider({
         setAttributes({
           images: newImages
         });
-      }
+      },
+      placeholder: "Write Slide Title"
     }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.RichText, {
       style: {
         fontSize: `${fontSize}`,
@@ -44900,7 +44969,8 @@ function CustomSlider({
         setAttributes({
           images: newImages
         });
-      }
+      },
+      placeholder: "Write Slide Description"
     }))));
   })));
 }
@@ -59850,7 +59920,7 @@ module.exports = /*#__PURE__*/JSON.parse('[{"terms":["Digit Zero","nada","none",
 /***/ ((module) => {
 
 "use strict";
-module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"b-blocks/custom-slider","version":"1.0.0","title":"Custom Slider","category":"widgets","description":"Short description of the Custom Slider","keywords":["slider","cutom slider"],"textdomain":"b-blocks","attributes":{"alignment":{"type":"string","default":"center"},"purposeType":{"type":"string","default":"test"},"colors":{"type":"object","default":{"color":"black","bg":"#B1C5A4"}},"images":{"type":"array","default":[{"url":"https://plus.unsplash.com/premium_photo-1668091148044-056cd744e64a?q=80&w=2090&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D","title":"Image title","description":"Image Description"}]},"selectTag":{"type":"string","default":"h1"},"fontSize":{"type":"string","default":"16px"},"textContentAlignment":{"type":"string","default":"left"},"indicator":{"type":"boolean","default":true},"titleColor":{"type":"string","default":"#fff"},"descriptionColor":{"type":"string","default":"#fff"},"descriptionFontWeight":{"type":"string","default":"normal"},"descriptionFontStyle":{"type":"string","default":"normal"},"desLineHeight":{"type":"string","default":""},"desLetterSpacing":{"type":"string","default":""},"desTextTrasform":{"type":"string","default":""},"slideContentLayout":{"type":"object","default":{"bottom":"0%","left":"0px","width":"100%","height":"100%","background":"#000000","color":"#fff","padding":"19px 15px","maxHeight":"50%","display":"flex","flexDirection":"column","justifyContent":"top","alignItems":"center center"}},"slideEffects":{"type":"object","default":{"effect":"fade","duration":1000,"delay":1000,"easing":"ease"}},"translateX":{"type":"number","default":0},"translateY":{"type":"number","default":0},"red":{"type":"number","default":0},"green":{"type":"number","default":0},"blue":{"type":"number","default":0},"alpha":{"type":"number","default":1}},"supports":{"align":["wide","full"],"html":false},"example":{"attributes":{}},"editorScript":["file:./index.js",""],"editorStyle":"file:./index.css","style":["file:./view.css",""],"render":"file:./render.php","viewScript":["file:./view.js",""]}');
+module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"b-blocks/custom-slider","version":"1.0.0","title":"Custom Slider","category":"widgets","description":"Short description of the Custom Slider","keywords":["slider","cutom slider"],"textdomain":"b-blocks","attributes":{"alignment":{"type":"string","default":"center"},"purposeType":{"type":"string","default":"test"},"colors":{"type":"object","default":{"color":"black","bg":"#B1C5A4"}},"images":{"type":"array","default":[{"url":"https://plus.unsplash.com/premium_photo-1668091148044-056cd744e64a?q=80&w=2090&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D","title":"Slide title","description":"Slide Description"}]},"selectTag":{"type":"string","default":"h1"},"fontSize":{"type":"string","default":"16px"},"textContentAlignment":{"type":"string","default":"left"},"indicator":{"type":"boolean","default":true},"titleColor":{"type":"string","default":"#fff"},"descriptionColor":{"type":"string","default":"#fff"},"descriptionFontWeight":{"type":"string","default":"normal"},"descriptionFontStyle":{"type":"string","default":"normal"},"desLineHeight":{"type":"string","default":""},"desLetterSpacing":{"type":"string","default":""},"desTextTrasform":{"type":"string","default":""},"slideContentLayout":{"type":"object","default":{"bottom":"0%","left":"0px","width":"100%","height":"100%","background":"#000000","color":"#fff","padding":"19px 15px","maxHeight":"50%","display":"flex","flexDirection":"column","justifyContent":"top","alignItems":"center center"}},"slideEffects":{"type":"object","default":{"effect":"fade","delay":1000,"easing":"ease"}},"translateX":{"type":"number","default":0},"translateY":{"type":"number","default":0},"red":{"type":"number","default":0},"green":{"type":"number","default":0},"blue":{"type":"number","default":0},"alpha":{"type":"number","default":1},"isAutoplay":{"type":"boolean","default":false},"delay":{"type":"number","default":2000},"showNavigation":{"type":"boolean","default":true},"showPagination":{"type":"boolean","default":true},"prevIcon":{"type":"string","default":"dashicons-arrow-left"},"nextIcon":{"type":"string","default":"dashicons-arrow-right"}},"supports":{"align":["wide","full"],"html":false},"example":{"attributes":{}},"editorScript":["file:./index.js",""],"editorStyle":"file:./index.css","style":["file:./view.css",""],"render":"file:./render.php","viewScript":["file:./view.js",""]}');
 
 /***/ })
 

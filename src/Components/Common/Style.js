@@ -70,11 +70,8 @@ const Style = ({ attributes, id }) => {
           left: ${left};
           width: ${width};
           height: ${height};
-          background: rgba(0, 0, 0, 0.6);
           padding: ${padding};
           color: ${color};
-         
-        
           max-height: ${maxHeight};
           display: ${display};
           flex-direction: ${flexDirection};

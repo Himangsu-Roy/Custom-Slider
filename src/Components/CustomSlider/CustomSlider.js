@@ -6,9 +6,20 @@ import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
 
 import "./styles.css";
-import React from "react";
+import React, { useState } from "react";
 
-import { EffectCoverflow, Pagination, Navigation, EffectFade, EffectCube, EffectFlip, EffectCards, EffectCreative } from "swiper/modules";
+import {
+  EffectCoverflow,
+  Pagination,
+  Navigation,
+  EffectFade,
+  EffectCube,
+  EffectFlip,
+  EffectCards,
+  EffectCreative,
+  Autoplay,
+  delay,
+} from "swiper/modules";
 
 export default function CustomSlider({ attributes, setAttributes }) {
   const {
@@ -20,15 +31,23 @@ export default function CustomSlider({ attributes, setAttributes }) {
     desLineHeight,
     desLetterSpacing,
     slideEffects,
+    isAutoplay,
+    delay,
+    showNavigation,
+    showPagination,
   } = attributes;
 
   const { effect } = slideEffects;
-  console.log(effect, "effect from custom slide");
+
+  // {
+  //   nextEl: ".swiper-button-next",
+  //   prevEl: ".swiper-button-prev",
+  // }
 
   return (
     <>
       <Swiper
-        effect={effect} // effects
+        effect={effect} //effect
         grabCursor={true}
         centeredSlides={true}
         slidesPerView={"auto"}
@@ -54,13 +73,19 @@ export default function CustomSlider({ attributes, setAttributes }) {
           shadowOffset: 20,
           shadowScale: 0.94,
         }}
-        spaceBetween={30}
         loop={true}
-        pagination={{
-          clickable: `${indicator}`,
-          dynamicBullets: `${indicator}`,
-        }}
-        navigation={true}
+        pagination={
+          showPagination ? { clickable: true, dynamicBullets: true } : false
+        }
+        navigation={showNavigation ? true : false}
+        autoplay={
+          isAutoplay
+            ? {
+                delay: delay,
+                disableOnInteraction: false,
+              }
+            : false
+        }
         modules={[
           EffectCoverflow,
           Navigation,
@@ -70,6 +95,7 @@ export default function CustomSlider({ attributes, setAttributes }) {
           EffectFade,
           EffectFlip,
           EffectCreative,
+          Autoplay,
         ]}
         className="mySwiper"
       >
@@ -88,6 +114,7 @@ export default function CustomSlider({ attributes, setAttributes }) {
                       newImages[index].title = newTitle;
                       setAttributes({ images: newImages });
                     }}
+                    placeholder="Write Slide Title"
                   />
                   <RichText
                     style={{
@@ -103,6 +130,7 @@ export default function CustomSlider({ attributes, setAttributes }) {
                       newImages[index].description = newDescription;
                       setAttributes({ images: newImages });
                     }}
+                    placeholder="Write Slide Description"
                   />
                 </div>
               </div>

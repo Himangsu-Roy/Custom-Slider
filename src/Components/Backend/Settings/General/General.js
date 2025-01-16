@@ -9,16 +9,26 @@ import {
   TextareaControl,
   FontSizePicker,
   ToggleControl,
+  __experimentalNumberControl as NumberControl,
 } from "@wordpress/components";
 import { MediaUpload } from "@wordpress/block-editor";
 import { purposeTypeOptions } from "../../../../utils/options";
 import { updateData } from "../../../../utils/functions";
 
 const General = ({ attributes, setAttributes }) => {
-  const { images, selectTag, fontSize, textContentAlignment, indicator } =
-    attributes;
+  const {
+    images,
+    selectTag,
+    fontSize,
+    textContentAlignment,
+    indicator,
+    isAutoplay,
+    delay,
+    showNavigation,
+    showPagination,
+  } = attributes;
   const [currentIndex, setCurrentIndex] = useState(0);
-  // console.log(currentIndex, "current index");
+  console.log(delay, "delay number");
 
   // Duplicate Handler
   function handleDuplicate(image, index) {
@@ -234,8 +244,8 @@ const General = ({ attributes, setAttributes }) => {
             const newIndex = images.length + 1;
             newItems.push({
               url: "https://plus.unsplash.com/premium_photo-1668091148044-056cd744e64a?q=80&w=2090&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-              title: `Image ${newIndex}`,
-              description: `Image ${newIndex} Description`,
+              title: `Slide Title ${newIndex}`,
+              description: `Slide ${newIndex} Description`,
             });
             setAttributes({
               images: newItems,
@@ -245,12 +255,74 @@ const General = ({ attributes, setAttributes }) => {
           {__("Add New Slide", "b-blocks")}
         </Button>
       </PanelBody>
-      {/* <PanelBody
+
+      <PanelBody
         className="bPlPanelBody"
         title={__("Slider Options", "b-blocks")}
         initialOpen={false}
       >
         <ToggleControl
+          label="Autoplay"
+          help={isAutoplay ? "Autoplay On" : "Autoplay Off"}
+          checked={isAutoplay}
+          onChange={(value) => {
+            setAttributes({ isAutoplay: value });
+          }}
+        />
+
+        {isAutoplay && (
+          <NumberControl
+            label={__("Autoplay delay", "b-blocks")}
+            onChange={(value) => {
+              setAttributes({ delay: value });
+            }}
+            // isDragEnabled
+            // isShiftStepEnabled
+            // shiftStep={10}
+            // step={10}
+            value={delay}
+          />
+        )}
+
+        <Spacer />
+
+        {/* Show Navigation */}
+        <ToggleControl
+          label="Show Navigation"
+          help={showNavigation ? "Navigation On" : "Navigation Off"}
+          checked={showNavigation}
+          onChange={(value) => {
+            setAttributes({ showNavigation: value });
+          }}
+        />
+
+        {showNavigation && (
+          <div style={{ display: "flex" }} className="button-group">
+            <Button>
+              <span className="dashicons dashicons-arrow-right"></span>
+            </Button>
+            <Button>
+              <span className="dashicons dashicons-arrow-right-alt"></span>
+            </Button>
+            <Button>
+              <span className="dashicons dashicons-arrow-right-alt2"></span>
+            </Button>
+          </div>
+        )}
+
+        <Spacer />
+
+        {/* Show Pagination */}
+        <ToggleControl
+          label="Show Pagination"
+          help={showPagination ? "Pagination On" : "Pagination Off"}
+          checked={showPagination}
+          onChange={(value) => {
+            setAttributes({ showPagination: value });
+          }}
+        />
+
+        {/* <ToggleControl
           label="Page Indicator"
           help={
             indicator ? "Pagination Indicator On" : "Pagination Indicator Off"
@@ -259,8 +331,8 @@ const General = ({ attributes, setAttributes }) => {
           onChange={(newIndicator) => {
             setAttributes({ indicator: newIndicator });
           }}
-        />
-      </PanelBody> */}
+        /> */}
+      </PanelBody>
     </>
   );
 };

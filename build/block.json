@@ -32,8 +32,8 @@
       "default": [
         {
           "url": "https://plus.unsplash.com/premium_photo-1668091148044-056cd744e64a?q=80&w=2090&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-          "title": "Image title",
-          "description": "Image Description"
+          "title": "Slide title",
+          "description": "Slide Description"
         }
       ]
     },
@@ -102,7 +102,6 @@
       "type": "object",
       "default": {
         "effect": "fade",
-        "duration": 1000,
         "delay": 1000,
         "easing": "ease"
       }
@@ -130,6 +129,30 @@
     "alpha": {
       "type": "number",
       "default": 1
+    },
+    "isAutoplay": {
+      "type": "boolean",
+      "default": false
+    },
+    "delay": {
+      "type": "number",
+      "default": 2000
+    },
+    "showNavigation": {
+      "type": "boolean",
+      "default": true
+    },
+    "showPagination": {
+      "type": "boolean",
+      "default": true
+    },
+    "prevIcon": {
+      "type": "string",
+      "default": "dashicons-arrow-left"
+    },
+    "nextIcon": {
+      "type": "string",
+      "default": "dashicons-arrow-right"
     }
   },
   "supports": {
