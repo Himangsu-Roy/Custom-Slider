@@ -5,7 +5,7 @@ import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
 
-import "./styles.css";
+// import "./styles.css";
 import React, { useState } from "react";
 
 import {
@@ -35,7 +35,10 @@ export default function CustomSlider({ attributes, setAttributes }) {
     delay,
     showNavigation,
     showPagination,
+    buttonType,
   } = attributes;
+
+  console.log(buttonType, "button types");
 
   const { effect } = slideEffects;
 
@@ -43,6 +46,32 @@ export default function CustomSlider({ attributes, setAttributes }) {
   //   nextEl: ".swiper-button-next",
   //   prevEl: ".swiper-button-prev",
   // }
+
+  const renderNavigationButtons = () => {
+    switch (buttonType) {
+      case "rounded":
+        return (
+          <>
+            <div className="swiper-button-prev dashicons dashicons-arrow-left"></div>
+            <div className="swiper-button-next dashicons dashicons-arrow-right"></div>
+          </>
+        );
+      case "arrow":
+        return (
+          <>
+            <div className="swiper-button-prev custom-arrow-prev"></div>
+            <div className="swiper-button-next custom-arrow-next"></div>
+          </>
+        );
+      default:
+        return (
+          <>
+            <div className="swiper-button-prev swiper-button-default-prev"></div>
+            <div className="swiper-button-next swiper-button-default-next"></div>
+          </>
+        );
+    }
+  };
 
   return (
     <>
@@ -138,6 +167,8 @@ export default function CustomSlider({ attributes, setAttributes }) {
           );
         })}
       </Swiper>
+
+      {/* {showNavigation && <>{renderNavigationButtons()}</>} */}
     </>
   );
 }

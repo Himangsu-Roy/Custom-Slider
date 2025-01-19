@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
   );
   blockNameEls.forEach((blockNameEl) => {
     const attributes = JSON.parse(blockNameEl.dataset.attributes);
+    console.log(attributes, "attributes");
 
     createRoot(blockNameEl).render(
       <>

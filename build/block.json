@@ -57,6 +57,44 @@
       "type": "string",
       "default": "#fff"
     },
+    "titleFontWeight": {
+      "type": "string",
+      "default": "normal"
+    },
+    "titleFontStyle": {
+      "type": "string",
+      "default": "normal"
+    },
+    "titleLineHeight": {
+      "type": "string",
+      "default": ""
+    },
+    "titleLetterSpacing": {
+      "type": "string",
+      "default": ""
+    },
+    "titleTextTrasform": {
+      "type": "string",
+      "default": ""
+    },
+    "titleMargin": {
+      "type": "object",
+      "default": {
+        "top": "0px",
+        "right": "0px",
+        "bottom": "0px",
+        "left": "0px"
+      }
+    },
+    "titlePadding": {
+      "type": "object",
+      "default": {
+        "top": "0px",
+        "right": "0px",
+        "bottom": "0px",
+        "left": "0px"
+      }
+    },
     "descriptionColor": {
       "type": "string",
       "default": "#fff"
@@ -81,11 +119,29 @@
       "type": "string",
       "default": ""
     },
+    "desMargin": {
+      "type": "object",
+      "default": {
+        "top": "0px",
+        "right": "0px",
+        "bottom": "0px",
+        "left": "0px"
+      }
+    },
+    "desPadding": {
+      "type": "object",
+      "default": {
+        "top": "0px",
+        "right": "0px",
+        "bottom": "0px",
+        "left": "0px"
+      }
+    },
     "slideContentLayout": {
       "type": "object",
       "default": {
         "bottom": "0%",
-        "left": "0px",
+        "left": "0%",
         "width": "100%",
         "height": "100%",
         "background": "#000000",
@@ -153,6 +209,18 @@
     "nextIcon": {
       "type": "string",
       "default": "dashicons-arrow-right"
+    },
+    "buttonType": {
+      "type": "string",
+      "default": "default"
+    },
+    "slideWidth": {
+      "type": "number",
+      "default": 650
+    },
+    "slideHeight": {
+      "type": "number",
+      "default": 500
     }
   },
   "supports": {

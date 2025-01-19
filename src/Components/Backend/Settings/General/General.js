@@ -10,6 +10,8 @@ import {
   FontSizePicker,
   ToggleControl,
   __experimentalNumberControl as NumberControl,
+  __experimentalDivider as Divider,
+  RangeControl,
 } from "@wordpress/components";
 import { MediaUpload } from "@wordpress/block-editor";
 import { purposeTypeOptions } from "../../../../utils/options";
@@ -26,6 +28,9 @@ const General = ({ attributes, setAttributes }) => {
     delay,
     showNavigation,
     showPagination,
+    buttonType,
+    slideWidth,
+    slideHeight,
   } = attributes;
   const [currentIndex, setCurrentIndex] = useState(0);
   console.log(delay, "delay number");
@@ -112,6 +117,7 @@ const General = ({ attributes, setAttributes }) => {
                       )}
                     />
                   </div>
+
                   <Spacer />
 
                   {/* Slide Image Alt Input */}
@@ -139,6 +145,8 @@ const General = ({ attributes, setAttributes }) => {
                     placeholder="Write Slide Title"
                   />
 
+                  <Spacer />
+
                   <TextareaControl
                     label="Image Description"
                     labelPosition="top"
@@ -150,6 +158,8 @@ const General = ({ attributes, setAttributes }) => {
                     }}
                     placeholder="Write Slide Description"
                   />
+
+                  <Spacer />
 
                   {/* Slide Image Title Input */}
                   <SelectControl
@@ -168,6 +178,8 @@ const General = ({ attributes, setAttributes }) => {
                     }
                   />
 
+                  <Spacer />
+
                   {/* Font Size Picker */}
                   <p>{__("Description Font Size", "b-blocks")}</p>
                   <FontSizePicker
@@ -177,20 +189,6 @@ const General = ({ attributes, setAttributes }) => {
                     fallbackFontSize={fallbackFontSize}
                     onChange={(newFontSize) => {
                       setAttributes({ fontSize: newFontSize });
-                    }}
-                  />
-
-                  {/* Content Alignment */}
-                  <SelectControl
-                    label={__("Content Alignment", "b-blocks")}
-                    value={textContentAlignment}
-                    options={[
-                      { label: "Left", value: "left" },
-                      { label: "Center", value: "center" },
-                      { label: "Right", value: "right" },
-                    ]}
-                    onChange={(newAlign) => {
-                      setAttributes({ textContentAlignment: newAlign });
                     }}
                   />
 
@@ -261,6 +259,24 @@ const General = ({ attributes, setAttributes }) => {
         title={__("Slider Options", "b-blocks")}
         initialOpen={false}
       >
+        <RangeControl
+          label="Slide Width"
+          value={slideWidth}
+          onChange={(value) => setAttributes({ slideWidth: value })}
+          min={450}
+          max={1000}
+        />
+
+        <Spacer />
+
+        <RangeControl
+          label="Slide Height"
+          value={slideHeight}
+          onChange={(value) => setAttributes({ slideHeight: value })}
+          min={0}
+          max={1000}
+        />
+
         <ToggleControl
           label="Autoplay"
           help={isAutoplay ? "Autoplay On" : "Autoplay Off"}
@@ -283,6 +299,8 @@ const General = ({ attributes, setAttributes }) => {
             value={delay}
           />
         )}
+
+        <Divider />
 
         <Spacer />
 
@@ -310,7 +328,22 @@ const General = ({ attributes, setAttributes }) => {
           </div>
         )}
 
+        {/* <SelectControl
+          label="Button Style"
+          value={buttonType}
+          options={[
+            { label: "Default", value: "default" },
+            { label: "Rounded", value: "rounded" },
+            { label: "Arrow", value: "arrow" },
+          ]}
+          onChange={(newButtonType) =>
+            setAttributes({ buttonType: newButtonType })
+          }
+        /> */}
+
         <Spacer />
+
+        <Divider />
 
         {/* Show Pagination */}
         <ToggleControl

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { __ } from "@wordpress/i18n";
 import {
   PanelBody,
@@ -8,11 +9,17 @@ import {
   __experimentalUnitControl as UnitControl,
   AlignmentMatrixControl,
   RangeControl,
+  __experimentalDivider as Divider,
+  __experimentalSpacer as Spacer,
+  __experimentalBoxControl as BoxControl,
+  __experimentalToolsPanelItem as ToolsPanelItem,
 } from "@wordpress/components";
 // import { ColorsControl } from "../../../../../../Components";
 import { ColorsControl } from "../../../../../../bpl-tools/Components";
 
 const Style = ({ attributes, setAttributes }) => {
+  const [margin, setMargin] = useState();
+
   const {
     colors,
     titleColor,
@@ -30,6 +37,16 @@ const Style = ({ attributes, setAttributes }) => {
     blue,
     alpha,
     slideEffects,
+    titleFontWeight,
+    titleFontStyle,
+    titleLineHeight,
+    titleLetterSpacing,
+    titleTextTrasform,
+    textContentAlignment,
+    titleMargin,
+    titlePadding,
+    desMargin,
+    desPadding,
   } = attributes;
   const {
     background,
@@ -47,7 +64,13 @@ const Style = ({ attributes, setAttributes }) => {
   } = slideContentLayout;
 
   const { effect } = slideEffects;
-  console.log(effect, "effect");
+
+  const resetAll = () => {
+    // setHeight(undefined);
+    // setWidth(undefined);
+    // setPadding(undefined);
+    setMargin(undefined);
+  };
 
   return (
     <>
@@ -64,6 +87,111 @@ const Style = ({ attributes, setAttributes }) => {
             setAttributes({ titleColor: color });
           }}
         />
+
+        {/* Title Font Weight */}
+        <SelectControl
+          label={__("Font Weight", "b-blocks")}
+          value={titleFontWeight}
+          options={[
+            { label: "Normal", value: "normal" },
+            { label: "Bold", value: "bold" },
+            { label: "Lighter", value: "lighter" },
+          ]}
+          onChange={(newTitleFontWeight) => {
+            setAttributes({ titleFontWeight: newTitleFontWeight });
+          }}
+        />
+
+        {/* Title Font Style */}
+        <SelectControl
+          label={__("Font Style", "b-blocks")}
+          value={titleFontStyle}
+          options={[
+            { label: "Normal", value: "normal" },
+            { label: "Italic", value: "italic" },
+            { label: "Oblique", value: "oblique" },
+          ]}
+          onChange={(newTitleFontStyle) => {
+            setAttributes({ titleFontStyle: newTitleFontStyle });
+          }}
+        />
+
+        {/* Title Line Height */}
+        <RangeControl
+          label="Line Height"
+          value={titleLineHeight}
+          onChange={(value) => setAttributes({ titleLineHeight: value })}
+          min={1}
+          max={100}
+        />
+
+        {/*Title Letter Spacing */}
+        <UnitControl
+          onChange={(value) => {
+            setAttributes({ titleLetterSpacing: value });
+          }}
+          label="Letter Spacing"
+          value={titleLetterSpacing}
+        />
+
+        <Spacer />
+
+        {/* Title Text Transform */}
+        <SelectControl
+          label={__("Text Transform", "b-blocks")}
+          value={titleTextTrasform}
+          options={[
+            { label: "None", value: "none" },
+            { label: "Uppercase", value: "uppercase" },
+            { label: "Lowercase", value: "lowercase" },
+            { label: "Capitalize", value: "capitalize" },
+          ]}
+          onChange={(newTextTransform) => {
+            setAttributes({ titleTextTrasform: newTextTransform });
+          }}
+        />
+
+        <Spacer />
+
+        {/* Title Padding */}
+        <BoxControl
+          label="Padding"
+          values={{
+            top: "50px",
+            left: "10%",
+            right: "10%",
+            bottom: "50px",
+          }}
+          onChange={(nextValues) => console.log(nextValues)}
+        />
+
+        <Spacer />
+
+        {/* Title Margin */}
+        <BoxControl
+          label="Margin"
+          values={{
+            ...titleMargin,
+          }}
+          onChange={(nextValues) =>
+            setAttributes({ ...titleMargin, titleMargin })
+          }
+        />
+
+        {/*  */}
+        <ToolsPanelItem
+          hasValue={() => !!titleMargin}
+          label={__("Margin")}
+          onDeselect={() => setMargin(undefined)}
+        >
+          <BoxControl
+            __next40pxDefaultSize
+            label={__("Margin")}
+            onChange={setMargin}
+            values={titleMargin}
+            allowReset={false}
+          />
+        </ToolsPanelItem>
       </PanelBody>
 
       {/* Description Styles */}
@@ -72,7 +200,7 @@ const Style = ({ attributes, setAttributes }) => {
         title={__("Description", "b-blocks")}
         initialOpen={false}
       >
-        {/* Description Color */}
+        {/*Description Color */}
         <p>Color</p>
         <ColorPicker
           color={"#f00"}
@@ -94,6 +222,7 @@ const Style = ({ attributes, setAttributes }) => {
             setAttributes({ descriptionFontWeight: newdescriptionFontWeight });
           }}
         />
+
         {/* Description Font Style */}
         <SelectControl
           label={__("Font Style", "b-blocks")}
@@ -108,15 +237,7 @@ const Style = ({ attributes, setAttributes }) => {
           }}
         />
 
-        {/* Line Height */}
-        {/* <UnitControl
-          onChange={(value) => {
-            setAttributes({ desLineHeight: value });
-          }}
-          label="Line Height"
-          value={desLineHeight}
-        /> */}
-
+        {/* Description Line Height */}
         <RangeControl
           label="Line Height"
           value={desLineHeight}
@@ -125,7 +246,7 @@ const Style = ({ attributes, setAttributes }) => {
           max={100}
         />
 
-        {/* Letter Spacing */}
+        {/*Description Letter Spacing */}
         <UnitControl
           onChange={(value) => {
             setAttributes({ desLetterSpacing: value });
@@ -179,14 +300,14 @@ const Style = ({ attributes, setAttributes }) => {
         />
       </PanelBody>
 
-      {/* Slide Layout */}
+      {/* Slide Overlay Layout */}
       <PanelBody
         className="bPlPanelBody"
         title={__("Overlay Content Layout", "b-blocks")}
         initialOpen={false}
       >
         {/* Top to Bottom */}
-        <UnitControl
+        {/* <UnitControl
           onChange={(value) => {
             setAttributes({
               slideContentLayout: {
@@ -198,7 +319,7 @@ const Style = ({ attributes, setAttributes }) => {
           label="Align Top to Bottom"
           value={bottom}
           help={"Use percentance"}
-        />
+        /> */}
 
         {/* Overlay Width */}
         <UnitControl
@@ -212,8 +333,12 @@ const Style = ({ attributes, setAttributes }) => {
           }}
           label="Background Overlay Width"
           value={width}
-          help={"Use percentance"}
+          help={"It is recommended to use percentages."}
+          max={100}
+          min={0}
         />
+
+        <Spacer />
 
         {/* Overlay Height */}
         <UnitControl
@@ -227,8 +352,10 @@ const Style = ({ attributes, setAttributes }) => {
           }}
           label="Background Overlay Height"
           value={height}
-          help={"Use percentance"}
+          help={"It is recommended to use percentages."}
         />
+
+        <Spacer />
 
         {/* Overlay Max Height */}
         <UnitControl
@@ -242,8 +369,38 @@ const Style = ({ attributes, setAttributes }) => {
           }}
           label="Background Overlay Max Height"
           value={maxHeight}
-          help={"Use percentance"}
+          help={"It is recommended to use percentages."}
         />
+
+        <Spacer />
+
+        <Divider />
+
+        {/* Overlay positioning */}
+        <RangeControl
+          label="Overlay Horizontal Position"
+          value={translateX}
+          onChange={(value) =>
+            setAttributes({
+              translateX: value,
+            })
+          }
+          min={-100}
+          max={100}
+        />
+        <RangeControl
+          label="Overlay Vertical Position"
+          value={translateY}
+          onChange={(value) =>
+            setAttributes({
+              translateY: value,
+            })
+          }
+          min={-100}
+          max={100}
+        />
+
+        <Divider />
 
         {/* Overlay Color */}
         <p>Overlay Color</p>
@@ -269,7 +426,7 @@ const Style = ({ attributes, setAttributes }) => {
           max={255}
         />
         <RangeControl
-          label="Alpha (Opacity)"
+          label="Opacity"
           value={alpha}
           onChange={(value) => setAttributes({ alpha: value })}
           min={0}
@@ -291,30 +448,23 @@ const Style = ({ attributes, setAttributes }) => {
           }}
         /> */}
 
-        <RangeControl
-          label="Translate X (%)"
-          value={translateX}
-          onChange={(value) =>
-            setAttributes({
-              translateX: value,
-            })
-          }
-          min={-100}
-          max={100}
-        />
-        <RangeControl
-          label="Translate Y (%)"
-          value={translateY}
-          onChange={(value) =>
-            setAttributes({
-              translateY: value,
-            })
-          }
-          min={-100}
-          max={100}
+        <Divider />
+
+        {/* Content Horizontal Alignment */}
+        <SelectControl
+          label={__("Text Content Horizontal Alignment", "b-blocks")}
+          value={textContentAlignment}
+          options={[
+            { label: "Left", value: "left" },
+            { label: "Center", value: "center" },
+            { label: "Right", value: "right" },
+          ]}
+          onChange={(newAlign) => {
+            setAttributes({ textContentAlignment: newAlign });
+          }}
         />
 
-        {/* Text Content Alignment */}
+        {/* Text Content Vertical Alignment */}
         <SelectControl
           label={__("Text Content Vertical Alignment", "b-blocks")}
           value={justifyContent}

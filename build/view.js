@@ -38,7 +38,18 @@ const Style = ({
     red,
     green,
     blue,
-    alpha
+    alpha,
+    titleFontWeight,
+    titleFontStyle,
+    titleLineHeight,
+    titleLetterSpacing,
+    titleTextTrasform,
+    slideWidth,
+    slideHeight,
+    titleMargin,
+    titlePadding,
+    desMargin,
+    desPadding
   } = attributes;
   const {
     background,
@@ -58,7 +69,7 @@ const Style = ({
   const blockSl = `${mainSl} .bBlocksCustomSlider`;
   const swiperSl = `${blockSl} .mySwiper`;
   const swiperWrapperSl = `${swiperSl} .swiper-wrapper`;
-  const swiperSlideSl = `${swiperWrapperSl} .swiper-slide`;
+  const swiperSlideSl = `${blockSl} .swiper-slide`;
   const slideWrapperSl = `${swiperSlideSl} .slide-wrapper`;
   const descriptionSl = `${slideWrapperSl} .slide-content .slide-description`;
   const descriptionFontSize = `#${id}.slide-description`;
@@ -67,43 +78,115 @@ const Style = ({
   // ${blockSl} p{
   // 		${getColorsCSS(colors)}
   // 	}
-  console.log(translateX, translateY, "transform");
+
+  //  transform: translate(${translateX}%, ${translateY}%);
+  console.log(slideWidth, "slide width from style");
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("style", {
     dangerouslySetInnerHTML: {
       __html: `
+
+        .bBlocksCustomSlider{
+          width: ${slideWidth}px;
+          height: ${slideHeight}px;
+        }
+        .wp-block-b-blocks-custom-slider{
+          width: ${slideWidth}px;
+          height: ${slideHeight}px;
+        }
+
+       .slide-wrapper{
+          width: ${slideWidth}px;
+          height: ${slideHeight}px;
+          position: relative;
+        }
+        .mySwiper{
+          width: ${slideWidth}px;
+          height: ${slideHeight}px;
+        }
+
+        .slide-image{
+          width: ${slideWidth}px;
+          height: ${slideHeight}px;
+          width: 100%;
+          height: auto;
+          display: block;
+        }
+
         ${descriptionFontSize}{
           font-size: ${fontSize}px;
         }
 
         ${slideContent} {
-        text-align: center;
+         text-align: center;
+        }
+
+        .swiper {
+          width: 100%;
+          padding-top: 50px;
+          padding-bottom: 50px;
+          width: ${slideWidth}px;
+          height: ${slideHeight}px;
+        }
+
+        .slide {
+          position: relative;
+          overflow: hidden;
+         
         }
         
         .slide-content{
+          position: absolute;
           text-align: ${textContentAlignment};
-
-          bottom: ${bottom};
+          bottom: 0%;
+          
           left: ${left};
           width: ${width};
           height: ${height};
           padding: ${padding};
+          box-sizing: border-box;
+          overflow: auto;
           color: ${color};
           max-height: ${maxHeight};
           display: ${display};
           flex-direction: ${flexDirection};
           justify-content: ${justifyContent};
-          transform: translate(${translateX}%, ${translateY}%);
+         
           background-color: rgba(${red}, ${green}, ${blue}, ${alpha});
+          transform: translate(${translateX}%, ${translateY}%);
           
+        }
 
+        
+
+        .slide-content h2,
+        .slide-content p {
+          margin: 0;
+          padding: 0;
+          line-height: 1.4;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+
+        ${swiperSlideSl}{
+          background-position: center;
+          background-size: cover;
+          width: ${width};
+          height: ${height};
         }
 
         .slide-wrapper img{
-
+          display: block;
+          width: 100%;
         }
 
         .slide-title {
          color: ${titleColor};
+         font-style: ${titleFontStyle};
+         font-weight: ${titleFontWeight};
+         line-height: ${titleLineHeight};
+         letter-spacing: ${titleLetterSpacing};
+         text-transform: ${titleTextTrasform};
         }
 
         .slide-description {
@@ -119,6 +202,7 @@ const Style = ({
         }
 
 
+    
 
 	`
     }
@@ -146,8 +230,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var swiper_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! swiper/css */ "../plugin-slug/node_modules/swiper/swiper.css");
 /* harmony import */ var swiper_css_effect_coverflow__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! swiper/css/effect-coverflow */ "../plugin-slug/node_modules/swiper/modules/effect-coverflow.css");
 /* harmony import */ var swiper_css_pagination__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! swiper/css/pagination */ "../plugin-slug/node_modules/swiper/modules/pagination.css");
-/* harmony import */ var _styles_css__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./styles.css */ "./src/Components/CustomSlider/styles.css");
-/* harmony import */ var swiper_modules__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! swiper/modules */ "../plugin-slug/node_modules/swiper/modules/index.mjs");
+/* harmony import */ var swiper_modules__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! swiper/modules */ "../plugin-slug/node_modules/swiper/modules/index.mjs");
 
 
 
@@ -155,6 +238,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+// import "./styles.css";
 
 
 function CustomSlider({
@@ -173,8 +257,10 @@ function CustomSlider({
     isAutoplay,
     delay,
     showNavigation,
-    showPagination
+    showPagination,
+    buttonType
   } = attributes;
+  console.log(buttonType, "button types");
   const {
     effect
   } = slideEffects;
@@ -184,6 +270,28 @@ function CustomSlider({
   //   prevEl: ".swiper-button-prev",
   // }
 
+  const renderNavigationButtons = () => {
+    switch (buttonType) {
+      case "rounded":
+        return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+          className: "swiper-button-prev dashicons dashicons-arrow-left"
+        }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+          className: "swiper-button-next dashicons dashicons-arrow-right"
+        }));
+      case "arrow":
+        return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+          className: "swiper-button-prev custom-arrow-prev"
+        }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+          className: "swiper-button-next custom-arrow-next"
+        }));
+      default:
+        return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+          className: "swiper-button-prev swiper-button-default-prev"
+        }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+          className: "swiper-button-next swiper-button-default-next"
+        }));
+    }
+  };
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(swiper_react__WEBPACK_IMPORTED_MODULE_1__.Swiper, {
     effect: effect //effect
     ,
@@ -222,7 +330,7 @@ function CustomSlider({
       delay: delay,
       disableOnInteraction: false
     } : false,
-    modules: [swiper_modules__WEBPACK_IMPORTED_MODULE_7__.EffectCoverflow, swiper_modules__WEBPACK_IMPORTED_MODULE_7__.Navigation, swiper_modules__WEBPACK_IMPORTED_MODULE_7__.Pagination, swiper_modules__WEBPACK_IMPORTED_MODULE_7__.EffectCards, swiper_modules__WEBPACK_IMPORTED_MODULE_7__.EffectCube, swiper_modules__WEBPACK_IMPORTED_MODULE_7__.EffectFade, swiper_modules__WEBPACK_IMPORTED_MODULE_7__.EffectFlip, swiper_modules__WEBPACK_IMPORTED_MODULE_7__.EffectCreative, swiper_modules__WEBPACK_IMPORTED_MODULE_7__.Autoplay],
+    modules: [swiper_modules__WEBPACK_IMPORTED_MODULE_6__.EffectCoverflow, swiper_modules__WEBPACK_IMPORTED_MODULE_6__.Navigation, swiper_modules__WEBPACK_IMPORTED_MODULE_6__.Pagination, swiper_modules__WEBPACK_IMPORTED_MODULE_6__.EffectCards, swiper_modules__WEBPACK_IMPORTED_MODULE_6__.EffectCube, swiper_modules__WEBPACK_IMPORTED_MODULE_6__.EffectFade, swiper_modules__WEBPACK_IMPORTED_MODULE_6__.EffectFlip, swiper_modules__WEBPACK_IMPORTED_MODULE_6__.EffectCreative, swiper_modules__WEBPACK_IMPORTED_MODULE_6__.Autoplay],
     className: "mySwiper"
   }, images.map((image, index) => {
     return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(swiper_react__WEBPACK_IMPORTED_MODULE_1__.SwiperSlide, {
@@ -295,18 +403,6 @@ const BlockName = ({
   }, purposeType === "test" ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, "Every text is written for a reason. For example, every text message you send has a purpose, whether that is to let your mum know when you will be home.") : (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("p", null, "If someone sends you an invitation to a party, for example, they are telling you what time to arrive and what the sender is celebrating, and they might even."));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (BlockName);
-
-/***/ }),
-
-/***/ "./src/Components/CustomSlider/styles.css":
-/*!************************************************!*\
-  !*** ./src/Components/CustomSlider/styles.css ***!
-  \************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-// extracted by mini-css-extract-plugin
-
 
 /***/ }),
 
@@ -11813,6 +11909,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const blockNameEls = document.querySelectorAll(".wp-block-b-blocks-custom-slider");
   blockNameEls.forEach(blockNameEl => {
     const attributes = JSON.parse(blockNameEl.dataset.attributes);
+    console.log(attributes, "attributes");
     (0,react_dom_client__WEBPACK_IMPORTED_MODULE_1__.createRoot)(blockNameEl).render((0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_Components_Common_Style__WEBPACK_IMPORTED_MODULE_3__["default"], {
       attributes: attributes,
       id: blockNameEl.id
